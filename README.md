@@ -216,10 +216,10 @@ Teams that secure more dragons tend to have a way higher probability of winning 
 
 The table below summarizes average objective statistics grouped by whether a team secured **First Dragon**.
 
-| firstdragon | win_rate | avg_dragons | avg_heralds | avg_void_grubs | avg_barons | avg_towers | avg_inhibitors | avg_objective_score |
-|------------|----------|-------------|-------------|----------------|------------|------------|----------------|---------------------|
-| 0          | 0.42     | 1.61        | 0.49        | 2.43           | 0.49       | 5.50       | 0.77           | 14.76               |
-| 1          | 0.58     | 2.84        | 0.51        | 1.80           | 0.57       | 6.51       | 0.97           | 16.89               |
+|   firstdragon |   result |   dragons |   heralds |   void_grubs |   barons |   towers |   inhibitors |   objective_score |
+|--------------:|---------:|----------:|----------:|-------------:|---------:|---------:|-------------:|------------------:|
+|             0 | 0.424682 |   1.60597 |  0.488405 |      2.4274  | 0.486993 |  5.50151 |     0.766284 |           14.7609 |
+|             1 | 0.575424 |   2.84178 |  0.509491 |      1.79867 | 0.572597 |  6.51313 |     0.97395  |           16.8874 |
 
 This grouped table highlights the impact of early objective control by comparing teams that did and did not secure
 First Dragon. Teams that obtained First Dragon show a substantially higher win rate and consistently higher averages
@@ -263,12 +263,13 @@ Our statistic to perform this test will be the Total Variance Distance (TVD).
   frameborder="0">
 </iframe>
 
+<p>
 Here is the plot showing the distribution of TVDs when permutated using firstbaron missingness versus the gamelength. Overall we found that the 
 - Observed TVD (gamelength vs firstbaron_missing): 0.030018447338675973
 - Permutation p-value for dependency on gamelength(0-25, 25-35, >35 mins): 0.012
 
 This means that we reject our null hypothesis, meaning that the missingness of firstbaron does depend on game length. This also does match our previous knowledge about the baron spawning process, which is that sometimes the game length results in barons not being spawned at all if a match finished before the spawn timer of 25 minutes. As a result, shorter games are more likely to have missing values for firstbaron, explaining the observed dependency. This is Missing at Random (MAR) because the missingness of our firstbaron column can be explained by the game length column.
-
+</p>
 
 - Null Hypothesis: Distribution of result when firstbaron is missing is the same as the distribution of result when firstblood is not missing.
 
@@ -282,6 +283,7 @@ This means that we reject our null hypothesis, meaning that the missingness of f
   frameborder="0">
 </iframe>
 
+<p>
 Here is the plot showing the distribution of TVDs when permutated using firstbaron missingness versus the result. Overall we found that the 
 - Observed TVD (result vs firstbaron_missing): 0
 - Permutation p-value for dependency on result: 1.0
@@ -289,7 +291,7 @@ Here is the plot showing the distribution of TVDs when permutated using firstbar
 We fail to reject the null hypothesis, indicating that the missingness of firstbaron does not
 depend on match outcome // result. This suggests that missingness is unrelated to whether a team won
 or lost, and is instead driven by other factors.
-
+</p>
 
 ## Hypothesis Testing
 
