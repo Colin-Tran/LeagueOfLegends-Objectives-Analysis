@@ -373,6 +373,12 @@ There are many different features that I added to the final model including:
 
 - void_grubs (quantitative): This feature measures the number of void grubs secured. This feature is important because Void Grubs provide stacking bonuses that improve damage to structures and scale over time, contributing to long-term map pressure thus increasing a team’s chances of winning.
 
+Like our baseline model, we continued to use logistic regression because our response variable is binary and logistic regression is a good model for this. To choose the best hyperparameters, I used a GridSearchCV with 5-fold cross-validation, tuning the regularization strength parameter C over the values {0.01, 0.1, 1, 10} while using L2 regularization and evaluating models using accuracy. 
 
-0.9498108448928121
+The best-performing setting was C = {'log_reg__C': 10, 'log_reg__penalty': 'l2'}.
+
+
+ Compared to the Baseline Model, which had an accuracy ≈ 0.825 using only dragons and barons, the Final Model achieved a higher test accuracy of 0.9498108448928121 ≈ 0.95 by incorporating these additional objective and advantage-based features. These features better capture overall objective control and relative dominance over the opponent, allowing the model to more accurately predict a team’s win probability based on in-game objectives.
+
+
 ## Fairness Analysis
