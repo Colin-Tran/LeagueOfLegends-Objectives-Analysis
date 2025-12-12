@@ -224,3 +224,24 @@ The table below summarizes average objective statistics grouped by whether a tea
 This grouped table highlights the impact of early objective control by comparing teams that did and did not secure
 First Dragon. Teams that obtained First Dragon show a substantially higher win rate and consistently higher averages
 across key objectives such as dragons, barons, towers, and total objective score. This suggests that early objective (such as first dragon) provides a significant advantage, increasing a team’s likelihood of winning.
+
+
+## Assessment of Missingness
+
+### NMAR Analysis
+Not missing at random (NMAR)
+Is there a good reason why the missingness depends on the values themselves?
+
+
+In our data, I believe that these columns can be NMAR:
+
+**Late Game Objectives (time constraint)**
+- firstbaron, barons, opp_barons
+- elders, opp_olders, 
+
+These columns can be NMAR because the missingness can be tied to whether the objective ever became available in the match. For example, with our barons and elders (late game objectives) a reason as to why some of this data may be missing is simply because our game didn't make it to time when these objectives would spawn. Baron Nashor spawns at 25 minutes and Elder at the earliest can spawn around 25-27 minutes. Some competitive matches end before these time thresholds meaning these objectives never spawn within these matches. In these cases, the missingness can depend on the unobserved value of the variable itself.
+
+**Chance for certain drakes to appear within a game**
+- infernals, mountains, clouds, oceans, chemtechs, hextechs, dragons (type unknown) 
+
+For the drakes/dragons, each LOL match follows a fixed elemental dragon spawn pattern. The first two dragons are the same element followed by two dragons that are two different elements from the previous ones. This provides a chance at getting 3 different elemental dragons meaning at least 3 of the possible elemental dragons don't spawn every match. Basically, a subset of dragon types are selected each game allowing for the possibility of certain dragon types to be left out. This could account for the missginess within these columns as this missingness depends on the  unobserved elemental configuration of the match, rather than being missing at random.
