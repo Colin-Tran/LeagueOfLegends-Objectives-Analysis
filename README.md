@@ -235,13 +235,54 @@ Is there a good reason why the missingness depends on the values themselves?
 
 In our data, I believe that these columns can be NMAR:
 
-**Late Game Objectives (time constraint)**
-- firstbaron, barons, opp_barons
-- elders, opp_olders, 
-
-These columns can be NMAR because the missingness can be tied to whether the objective ever became available in the match. For example, with our barons and elders (late game objectives) a reason as to why some of this data may be missing is simply because our game didn't make it to time when these objectives would spawn. Baron Nashor spawns at 25 minutes and Elder at the earliest can spawn around 25-27 minutes. Some competitive matches end before these time thresholds meaning these objectives never spawn within these matches. In these cases, the missingness can depend on the unobserved value of the variable itself.
-
 **Chance for certain drakes to appear within a game**
 - infernals, mountains, clouds, oceans, chemtechs, hextechs, dragons (type unknown) 
 
 For the drakes/dragons, each LOL match follows a fixed elemental dragon spawn pattern. The first two dragons are the same element followed by two dragons that are two different elements from the previous ones. This provides a chance at getting 3 different elemental dragons meaning at least 3 of the possible elemental dragons don't spawn every match. Basically, a subset of dragon types are selected each game allowing for the possibility of certain dragon types to be left out. This could account for the missginess within these columns as this missingness depends on the  unobserved elemental configuration of the match, rather than being missing at random.
+
+
+### Missingness Dependency
+
+In this section, I will test if the missingness of the **firstbaron** column is dependent on other columns. More specifically, we will be looking at the **game length** and **result** columns to see whether or not missingness is dependent on these two. 
+
+First we will perform a permutation test on the **firstbaron** and **game length** columns.
+
+- Null Hypothesis: Distribution of gamelength when firstbaron is missing is the same as the distribution of gamelength when firstblood is not missing.
+
+- Alternative Hypothesis: Distribution of gamelength when firstbaron is missing is **NOT** the same as the distribution of gamelength when firstblood is not missing.
+
+firstbaron missing in 1634 out of 19822 rows (8.24%)
+
+Our statistic to perform this test will be the Total Variance Distance (TVD).
+
+<iframe
+  src="assets/firstbaron_missing_vs_gamelength_tvd.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+
+Here is the plot showing the distribution of TVDs when permutated using firstbaron missingness versus the gamelength. Overall we found that the 
+- Observed TVD (gamelength vs firstbaron_missing): 0.030018447338675973
+- Permutation p-value for dependency on gamelength(0-25, 25-35, >35 mins): 0.012
+
+This means that we reject our null hypothesis, meaning that the missingness of firstbaron does depend on game length. This also does match our previous knowledge about the baron spawning process, which is that sometimes the game length results in barons not being spawned at all if a match finished before the spawn timer of 25 minutes. As a result, shorter games are more likely to have missing values for firstbaron, explaining the observed dependency. This is Missing at Random (MAR) because the missingness of our firstbaron column can be explained by the game length column.
+
+
+- Null Hypothesis: Distribution of result when firstbaron is missing is the same as the distribution of result when firstblood is not missing.
+
+- Alternative Hypothesis: Distribution of result when firstbaron is missing is **NOT** the same as the distribution of result when firstblood is not missing.
+
+
+<iframe
+  src="assets/firstbaron_missing_vs_result_tvd.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+
+Here is the plot showing the distribution of TVDs when permutated using firstbaron missingness versus the result. Overall we found that the 
+- Observed TVD (result vs firstbaron_missing): 0
+- Permutation p-value for dependency on result: 1.0
+
+This means that we fail to reject our null hypothesis.
