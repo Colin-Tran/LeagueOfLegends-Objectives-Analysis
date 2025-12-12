@@ -189,7 +189,7 @@ is a late-game objective that typically helps teams decide or conclude games.
   height="600"
   frameborder="0">
 
-    <p>
+  <p>
   This box plot compares the distribution of total objectives secured by teams that won versus teams that lost.
   The winning teams generally secure significantly more objectives, highlighting the strong relationship between
   objective control and match outcome.
