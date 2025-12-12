@@ -146,7 +146,7 @@ Here is what our cleaned dataset looks like:
 <iframe
   src="assets/objective_score_distribution.html"
   width="800"
-  height="600"
+  height="500"
   frameborder="0">
 </iframe>
 
@@ -158,7 +158,7 @@ This histogram shows that the distribution of team objective score is relatively
 <iframe
   src="assets/dragons_distribution.html"
   width="800"
-  height="600"
+  height="500"
   frameborder="0">
 </iframe>
 
@@ -170,7 +170,7 @@ The distribtuion appears to be relatively normal with most teams securing around
 <iframe
   src="assets/barons_distribution.html"
   width="800"
-  height="600"
+  height="500"
   frameborder="0">
 </iframe>
 
@@ -204,7 +204,7 @@ objective control and match outcome.
 <iframe
   src="assets/dragons_vs_winrate.html"
   width="800"
-  height="600"
+  height="500"
   frameborder="0">
 </iframe>
 
@@ -261,7 +261,7 @@ Our statistic to perform this test will be the Total Variance Distance (TVD).
 <iframe
   src="assets/firstbaron_missing_vs_gamelength_tvd.html"
   width="800"
-  height="600"
+  height="500"
   frameborder="0">
 </iframe>
 
@@ -281,7 +281,7 @@ This means that we reject our null hypothesis, meaning that the missingness of f
 <iframe
   src="assets/firstbaron_missing_vs_result_tvd.html"
   width="800"
-  height="600"
+  height="500"
   frameborder="0">
 </iframe>
 
