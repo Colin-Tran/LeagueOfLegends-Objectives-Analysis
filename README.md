@@ -130,13 +130,13 @@ Some objective columns contain missing values. For simplicity sake, we assumed t
 Here is what our cleaned dataset looks like:
 
 
-<iframe
-  src="assets/teams_clean_head.html"
-  width="100%"
-  height="400"
-  frameborder="0">
-</iframe>
-
+|   firstdragon |   dragons |   opp_dragons |   elementaldrakes |   opp_elementaldrakes |   infernals |   mountains |   clouds |   oceans |   chemtechs |   hextechs |   dragons (type unknown) |   elders |   opp_elders |   firstherald |   heralds |   opp_heralds |   void_grubs |   opp_void_grubs |   firstbaron |   barons |   opp_barons |   atakhans |   opp_atakhans |   firsttower |   firstmidtower |   firsttothreetowers |   towers |   opp_towers |   turretplates |   opp_turretplates |   inhibitors |   opp_inhibitors |   result |   datacompleteness |   gamelength |   objective_score |
+|--------------:|----------:|--------------:|------------------:|----------------------:|------------:|------------:|---------:|---------:|------------:|-----------:|-------------------------:|---------:|-------------:|--------------:|----------:|--------------:|-------------:|-----------------:|-------------:|---------:|-------------:|-----------:|---------------:|-------------:|----------------:|---------------------:|---------:|-------------:|---------------:|-------------------:|-------------:|-----------------:|---------:|-------------------:|-------------:|------------------:|
+|             0 |         0 |             2 |                 0 |                     2 |           0 |           0 |        0 |        0 |           0 |          0 |                        0 |        0 |            0 |             0 |         0 |             1 |            0 |                6 |            0 |        0 |            1 |          0 |              1 |            0 |               0 |                    0 |        3 |            9 |              1 |                  8 |            0 |                2 |        0 |                  0 |         1592 |                 4 |
+|             1 |         2 |             0 |                 2 |                     0 |           1 |           0 |        1 |        0 |           0 |          0 |                        0 |        0 |            0 |             1 |         1 |             0 |            6 |                0 |            1 |        1 |            0 |          1 |              0 |            1 |               1 |                    1 |        9 |            3 |              8 |                  1 |            2 |                0 |        1 |                  0 |         1592 |                29 |
+|             0 |         3 |             2 |                 3 |                     2 |           0 |           3 |        0 |        0 |           0 |          0 |                        0 |        0 |            0 |             1 |         1 |             0 |            6 |                0 |            1 |        1 |            0 |          1 |              0 |            1 |               1 |                    1 |       11 |            2 |              8 |                  2 |            3 |                0 |        1 |                  0 |         1922 |                33 |
+|             1 |         2 |             3 |                 2 |                     3 |           0 |           0 |        0 |        1 |           0 |          1 |                        0 |        0 |            0 |             0 |         0 |             1 |            0 |                6 |            0 |        0 |            1 |          0 |              1 |            0 |               0 |                    0 |        2 |           11 |              2 |                  8 |            0 |                3 |        0 |                  0 |         1922 |                 6 |
+|             0 |         0 |             4 |                 0 |                     4 |           0 |           0 |        0 |        0 |           0 |          0 |                        0 |        0 |            0 |             0 |         0 |             1 |            2 |                4 |            0 |        0 |            1 |          0 |              1 |            0 |               1 |                    0 |        3 |           12 |              7 |                 10 |            0 |                3 |        0 |                  0 |         1782 |                12 |
 
 ### EDA
 
@@ -238,8 +238,9 @@ In our data, I believe that these columns can be NMAR:
 **Chance for certain drakes to appear within a game**
 - infernals, mountains, clouds, oceans, chemtechs, hextechs, dragons (type unknown) 
 
-For the drakes/dragons, each LOL match follows a fixed elemental dragon spawn pattern. The first two dragons are the same element followed by two dragons that are two different elements from the previous ones. This provides a chance at getting 3 different elemental dragons meaning at least 3 of the possible elemental dragons don't spawn every match. Basically, a subset of dragon types are selected each game allowing for the possibility of certain dragon types to be left out. This could account for the missginess within these columns as this missingness depends on the  unobserved elemental configuration of the match, rather than being missing at random.
+For the drakes/dragons, each LOL match follows a fixed elemental dragon spawn pattern. The first two dragons are the same element followed by two dragons that are two different elements from the previous ones. This provides a chance at getting 3 different elemental dragons meaning at least 3 of the possible elemental dragons don't spawn every match. Basically, a subset of dragon types are selected each game allowing for the possibility of certain dragon types to be left out. This could account for the missingess within these columns as this missingness depends on the  unobserved elemental configuration of the match, rather than being missing at random. Thus, these elemental dragon columns are NMAR, since whether a value is missing depends on an unobserved mechanism (the elemental dragon configuration), not purely on observed variables / existing columns.
 
+Some data that might help us better understand the missingness would be information about the underlying elemental dragon selection process, such as which dragon elements were eligible to spawn in each match or the predetermined elemental sequence for that game. Having explicit indicators for which elemental dragons were possible would allow us to explain why certain dragon types never appear, potentially converting this missingness from NMAR to MAR.
 
 ### Missingness Dependency
 
@@ -285,4 +286,18 @@ Here is the plot showing the distribution of TVDs when permutated using firstbar
 - Observed TVD (result vs firstbaron_missing): 0
 - Permutation p-value for dependency on result: 1.0
 
-This means that we fail to reject our null hypothesis.
+We fail to reject the null hypothesis, indicating that the missingness of firstbaron does not
+depend on match outcome // result. This suggests that missingness is unrelated to whether a team won
+or lost, and is instead driven by other factors.
+
+
+## Hypothesis Testing
+
+
+## Framing a Prediction Problem
+
+## Baseline Model
+
+## Final Model
+
+## Fairness Analysis
