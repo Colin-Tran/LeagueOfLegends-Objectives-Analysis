@@ -150,12 +150,22 @@ Here is what our cleaned dataset looks like:
   frameborder="0">
 </iframe>
 
+<p>
+The objective score distribution summarizes the total number of objectives secured by teams in a single match.
+This histogram shows that the distribution of team objective score is relatively normal and most teams cluster around a moderate amount of total objectives. There are very few teams that are able to secure more than 30 total objectives. 
+</p>
+
 <iframe
   src="assets/dragons_distribution.html"
   width="800"
   height="600"
   frameborder="0">
 </iframe>
+
+<p>
+This distribution shows the number of dragons secured by teams in a match.
+The distribtuion appears to be relatively normal with most teams securing around 2-3 dragons within a LOL match. Very few teams are able to secure 4 or more dragons.
+</p>
 
 <iframe
   src="assets/barons_distribution.html"
@@ -164,4 +174,53 @@ Here is what our cleaned dataset looks like:
   frameborder="0">
 </iframe>
 
+<p>
+This histogram shows the number of Barons taken by teams in a match.
+Most teams secure zero or one Baron, with multiple Barons occurring rarely, highlighting the fact that Baron Nashor
+is a late-game objective that typically helps teams decide or conclude games.
+</p>
+
 #### Bivariate Analysis
+<h3>Objective Score vs Match Result</h3>
+
+<iframe
+  src="assets/objective_score_vs_result.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+
+<p>
+This box plot compares the distribution of total objectives secured by teams that won versus teams that lost.
+The winning teams generally secure significantly more objectives, highlighting the strong relationship between
+objective control and match outcome.
+</p>
+
+
+<h3>Win Rate by Number of Dragons Taken</h3>
+
+<iframe
+  src="assets/dragons_vs_winrate.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+
+<p>
+This bar chart shows how a team’s win rate changes as the number of dragons secured increases.
+Teams that secure more dragons tend to have a way higher probability of winning with the win chance plateauing when a team secures 4 dragons (this is when a team secures a soul which provides a significant buff).
+</p>
+
+
+#### Interesting Aggregates
+
+The table below summarizes average objective statistics grouped by whether a team secured **First Dragon**.
+
+| firstdragon | win_rate | avg_dragons | avg_heralds | avg_void_grubs | avg_barons | avg_towers | avg_inhibitors | avg_objective_score |
+|------------|----------|-------------|-------------|----------------|------------|------------|----------------|---------------------|
+| 0          | 0.42     | 1.61        | 0.49        | 2.43           | 0.49       | 5.50       | 0.77           | 14.76               |
+| 1          | 0.58     | 2.84        | 0.51        | 1.80           | 0.57       | 6.51       | 0.97           | 16.89               |
+
+This grouped table highlights the impact of early objective control by comparing teams that did and did not secure
+First Dragon. Teams that obtained First Dragon show a substantially higher win rate and consistently higher averages
+across key objectives such as dragons, barons, towers, and total objective score. This suggests that early objective (such as first dragon) provides a significant advantage, increasing a team’s likelihood of winning.
