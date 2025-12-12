@@ -186,7 +186,7 @@ is a late-game objective that typically helps teams decide or conclude games.
 <iframe
   src="assets/objective_score_vs_result.html"
   width="800"
-  height="300"
+  height="400"
   frameborder="0">
 
   
