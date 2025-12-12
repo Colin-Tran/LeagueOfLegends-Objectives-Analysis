@@ -186,17 +186,17 @@ is a late-game objective that typically helps teams decide or conclude games.
 <iframe
   src="assets/objective_score_vs_result.html"
   width="800"
-  height="600"
+  height="300"
   frameborder="0">
 
-  <p>
-  This box plot compares the distribution of total objectives secured by teams that won versus teams that lost.
-  The winning teams generally secure significantly more objectives, highlighting the strong relationship between
-  objective control and match outcome.
-  </p>
-
+  
 </iframe>
 
+<p>
+This box plot compares the distribution of total objectives secured by teams that won versus teams that lost.
+The winning teams generally secure significantly more objectives, highlighting the strong relationship between
+objective control and match outcome.
+</p>
 
 
 <h3>Win Rate by Number of Dragons Taken</h3>
