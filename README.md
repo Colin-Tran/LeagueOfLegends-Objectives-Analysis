@@ -104,7 +104,275 @@ This project focuses on team level objective control statistics and match outcom
 - gamelength: Total match duration (in seconds)
 
 - datacompleteness: Indicates whether match data is complete or partial or missing completely
-\n
+
 
 ## Data Cleaning and Exploratory Data Analysis
 
+### Data Cleaning
+
+#### Filter to Teams
+Before we analyzed any of the data we had to clean the raw Oracle's Elixir dataset to esnure the data reflected correct trends. To start we looked at each individual match and the data contained in each match. Each match contains a unique gameid and for each game there were ~12 rows that included one for each of the players as well as one row for each team. Since we are focusing on team objective control, we filtered out for **every** game to ensure that we only contained **team** data. With did this by by filtering for rows where the position column equals "team".
+
+#### Selecting only Relevant Columns
+Next, we wanted to select the relevant columns to our analysis. From 164 total unique columns, we cut it down to a total of 36 columns that were relevant to objectives within LOL. This included:
+- Epic Monster Objectives (dragons, heralds, void grubs, baron, elder, and atakhan)
+- Structural Objectives (towers, inhibiors, turret plates)
+- Outcomes / other helpful information (result, game length, data completeness)
+
+#### Converting to all numeric types
+Next, we wanted to make sure that all of our data present within the dataframe were converted to numeric types so that we can handle and analyze all of our data without any conflictions within the data types.
+
+
+#### Handling Missing Values (NaN)
+Some objective columns contain missing values. For simplicity sake, we assumed that these missing values indicated that this team didn't secure this objective. Thus, missing entries were replaced with 0. This allowed us to aggregate and analyze match data.
+
+
+Here is what our cleaned dataset looks like:
+
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>firstdragon</th>
+      <th>dragons</th>
+      <th>opp_dragons</th>
+      <th>elementaldrakes</th>
+      <th>opp_elementaldrakes</th>
+      <th>infernals</th>
+      <th>mountains</th>
+      <th>clouds</th>
+      <th>oceans</th>
+      <th>chemtechs</th>
+      <th>hextechs</th>
+      <th>dragons (type unknown)</th>
+      <th>elders</th>
+      <th>opp_elders</th>
+      <th>firstherald</th>
+      <th>heralds</th>
+      <th>opp_heralds</th>
+      <th>void_grubs</th>
+      <th>opp_void_grubs</th>
+      <th>firstbaron</th>
+      <th>barons</th>
+      <th>opp_barons</th>
+      <th>atakhans</th>
+      <th>opp_atakhans</th>
+      <th>firsttower</th>
+      <th>firstmidtower</th>
+      <th>firsttothreetowers</th>
+      <th>towers</th>
+      <th>opp_towers</th>
+      <th>turretplates</th>
+      <th>opp_turretplates</th>
+      <th>inhibitors</th>
+      <th>opp_inhibitors</th>
+      <th>result</th>
+      <th>datacompleteness</th>
+      <th>gamelength</th>
+      <th>objective_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>10</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>9.0</td>
+      <td>1.0</td>
+      <td>8.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>1592</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>9.0</td>
+      <td>3.0</td>
+      <td>8.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>1592</td>
+      <td>29.0</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>11.0</td>
+      <td>2.0</td>
+      <td>8.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>1922</td>
+      <td>33.0</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>11.0</td>
+      <td>2.0</td>
+      <td>8.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>1922</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>12.0</td>
+      <td>7.0</td>
+      <td>10.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>1782</td>
+      <td>12.0</td>
+    </tr>
+  </tbody>
+</table>
