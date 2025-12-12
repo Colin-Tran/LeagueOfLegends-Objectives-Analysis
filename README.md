@@ -311,14 +311,8 @@ Test Statistic: Difference in winrates:
 Significance Level: 5%
 
 P Value = 0.0000999
+- These choices are appropriate because they align with the question of whether teams that secure more dragons tend to have higher win rates. We can see a clear comparison with our high and low teams with our separation of <=2 and >=3. The difference in win rates is an appropriate test statistic because it directly measures the magnitude and direction of the relationship between dragons and the probability of winning.
 
-Based on the test we just performed, we reject the null hypothesis at a significance level of 5%. This indicates that the observed difference in win percentages between higher-dragon-securing teams and lower-dragon-securing teams is unlikely to be due to random chance alone. This suggest strongly that their is an assoication between securing more dragons and having a higher win rate.
-
-## Framing a Prediction Problem
-
-Prediction Problem: Predict whether a team will win or lose a League of Legends match based on the objectives they secure during the game.
-
-This problem is a binary classification problem, we are classifying teams into win/lose depending on the amount of objectives that they secure. 
 
 <iframe
   src="assets/hypothesis_test_win_rate_versus_dragons.html"
@@ -327,8 +321,58 @@ This problem is a binary classification problem, we are classifying teams into w
   frameborder="0">
 </iframe>
 
+Based on the test we just performed, we reject the null hypothesis at a significance level of 5%. This indicates that the observed difference in win percentages between higher-dragon-securing teams and lower-dragon-securing teams is unlikely to be due to random chance alone. This suggest strongly that their is an assoication between securing more dragons and having a higher win rate.
+
+
+## Framing a Prediction Problem
+
+Prediction Problem: Predict whether a team will win or lose a League of Legends match based on the objectives they secure during the game.
+
+This problem is a binary classification problem, since the response variable (result/win) has two possible outcomes, win/lose. The response varaible we are looking at is result, which indicates whether a team won(1) or lost(0) a LOL match. I chose result as the response variable because of our question, which mainly has to do with classifying whether a team wins or not depending on objective control.
+
+We evaluate the model using accuracy, which is the percentage of matches the model predicts correctly. Accuracy is a good choice because wins and losses occur at similar rates in the dataset, and making either type of mistake is equally important. This makes accuracy an easy and appropriate way to measure how well the model performs overall. We chose accuracy over metrics like F1-score because the classes are not heavily imbalanced, so there is no need to emphasize precision or recall.
+
+At the time of prediction, we would likely be partway through a match, so we would only know in-game information that is observable before the final result happens.  This information data would include objectives (how many dragons, heralds, barons, towers) and other statistics like kills and gold. We wouldn't use features that directly reveal the outcome or are only known after the game ends (like result).
+
 ## Baseline Model
+Our model is a logistic regression model trained on our data to predict whether a team wins or loses (result, 1 = win / 0 = loss) using a set of in game objectives. Logistic regression is appropriate here because the response variable is binary and the model outputs a probability of winning.
+
+Features Used 
+
+Our model uses 2 quantitative features:
+
+- dragons (quantitative count): number of dragons secured
+
+- barons (quantitative count): number of barons secured
+
+There are 0 ordinal features and 0 nominal features in this baseline model.
+
+Encoding / Preprocessing
+
+Because both features are quantitative, no categorical encoding (like one-hot encoding) is needed. We used a pipeline that applies StandardScaler to standardize the feature scales before fitting logistic regression. Scaling is useful because it puts dragons and barons on comparable scales, which helps logistic regression fit more stably and makes the coefficients more interpretable.
+
+Model Performance
+
+On the test set, the model achieved an accuracy of 0.8254728877679698
+
+This model is actually pretty decent and performs relatively well in predicting win percentage based on the count of in game objectives. It's accuracy of ~83% is pretty high and it is a great starting point. However, this is likely not the best model because we only used two features and it doesn't account for many other objectives and mechanics. There is definitely plenty of room for improvement in terms of model accuracy.
 
 ## Final Model
 
+Features Added
+
+There are many different features that I added to the final model including:
+
+- objective score (quantitative): This feature captures the **total** amount of objects secured by a team within a LOL match. This feature is important because it summarizes overall map control, reflecting a team’s ability to consistently convert advantages across multiple objectives rather than relying on a single objective.
+
+- dragon diff (quantitative): This feature measures the difference between a team’s dragons secured and their opponent’s dragons secured. It's important because dragons provide permanent, stacking buffs, and winning is often determined by which team secures more dragons (more buffs) than the opponent.
+
+- baron diff (quantitative): This feature measures the difference between a team’s barons secured and their opponent’s barons secured. It is important because Baron Nashor provides a powerful buff that enables teams to push lanes and close out games, so having more barons than the opponent strongly reflects a winning advantage.
+
+- heralds (quantitative): This feature measures the number of heralds secured.  It is important because Rift Herald helps teams take early towers and gain gold advantages, which can accelerate a team’s momentum and increase their ability to control sections of the map.
+
+- void_grubs (quantitative): This feature measures the number of void grubs secured. This feature is important because Void Grubs provide stacking bonuses that improve damage to structures and scale over time, contributing to long-term map pressure thus increasing a team’s chances of winning.
+
+
+0.9498108448928121
 ## Fairness Analysis
