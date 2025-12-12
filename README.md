@@ -188,13 +188,15 @@ is a late-game objective that typically helps teams decide or conclude games.
   width="800"
   height="600"
   frameborder="0">
+
+    <p>
+  This box plot compares the distribution of total objectives secured by teams that won versus teams that lost.
+  The winning teams generally secure significantly more objectives, highlighting the strong relationship between
+  objective control and match outcome.
+  </p>
+
 </iframe>
 
-<p>
-This box plot compares the distribution of total objectives secured by teams that won versus teams that lost.
-The winning teams generally secure significantly more objectives, highlighting the strong relationship between
-objective control and match outcome.
-</p>
 
 
 <h3>Win Rate by Number of Dragons Taken</h3>
@@ -263,13 +265,13 @@ Our statistic to perform this test will be the Total Variance Distance (TVD).
   frameborder="0">
 </iframe>
 
-<p>
+
 Here is the plot showing the distribution of TVDs when permutated using firstbaron missingness versus the gamelength. Overall we found that the 
 - Observed TVD (gamelength vs firstbaron_missing): 0.030018447338675973
 - Permutation p-value for dependency on gamelength(0-25, 25-35, >35 mins): 0.012
 
 This means that we reject our null hypothesis, meaning that the missingness of firstbaron does depend on game length. This also does match our previous knowledge about the baron spawning process, which is that sometimes the game length results in barons not being spawned at all if a match finished before the spawn timer of 25 minutes. As a result, shorter games are more likely to have missing values for firstbaron, explaining the observed dependency. This is Missing at Random (MAR) because the missingness of our firstbaron column can be explained by the game length column.
-</p>
+
 
 - Null Hypothesis: Distribution of result when firstbaron is missing is the same as the distribution of result when firstblood is not missing.
 
@@ -283,7 +285,7 @@ This means that we reject our null hypothesis, meaning that the missingness of f
   frameborder="0">
 </iframe>
 
-<p>
+
 Here is the plot showing the distribution of TVDs when permutated using firstbaron missingness versus the result. Overall we found that the 
 - Observed TVD (result vs firstbaron_missing): 0
 - Permutation p-value for dependency on result: 1.0
@@ -291,7 +293,7 @@ Here is the plot showing the distribution of TVDs when permutated using firstbar
 We fail to reject the null hypothesis, indicating that the missingness of firstbaron does not
 depend on match outcome // result. This suggests that missingness is unrelated to whether a team won
 or lost, and is instead driven by other factors.
-</p>
+
 
 ## Hypothesis Testing
 
