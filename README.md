@@ -272,6 +272,7 @@ Here is the plot showing the distribution of TVDs when permutated using firstbar
 
 This means that we reject our null hypothesis, meaning that the missingness of firstbaron does depend on game length. This also does match our previous knowledge about the baron spawning process, which is that sometimes the game length results in barons not being spawned at all if a match finished before the spawn timer of 25 minutes. As a result, shorter games are more likely to have missing values for firstbaron, explaining the observed dependency. This is Missing at Random (MAR) because the missingness of our firstbaron column can be explained by the game length column.
 
+Next we can do this same permutation test for the distributions of result versus firstbaron.
 
 - Null Hypothesis: Distribution of result when firstbaron is missing is the same as the distribution of result when firstblood is not missing.
 
@@ -296,9 +297,35 @@ or lost, and is instead driven by other factors.
 
 
 ## Hypothesis Testing
+In this section, we will assess whether or not there is a significant difference in the win rates between higher-dragon (3 dragons >=) securing teams and lower-dragon securing teams (<= 2 dragons). This will help us better understand the dynamic between objective and win rates.
 
+Null Hypothesis:
+The win rate is the same for high-dragon and low-dragon teams.
+
+Alternative Hypothesis:
+Teams that secure more dragons have a higher win rate.
+
+Test Statistic: Difference in winrates:
+- winrate_high - winrate_low
+
+Significance Level: 5%
+
+P Value = 0.0000999
+
+Based on the test we just performed, we reject the null hypothesis at a significance level of 5%. This indicates that the observed difference in win percentages between higher-dragon-securing teams and lower-dragon-securing teams is unlikely to be due to random chance alone. This suggest strongly that their is an assoication between securing more dragons and having a higher win rate.
 
 ## Framing a Prediction Problem
+
+Prediction Problem: Predict whether a team will win or lose a League of Legends match based on the objectives they secure during the game.
+
+This problem is a binary classification problem, we are classifying teams into win/lose depending on the amount of objectives that they secure. 
+
+<iframe
+  src="assets/hypothesis_test_win_rate_versus_dragons.html"
+  width="800"
+  height="500"
+  frameborder="0">
+</iframe>
 
 ## Baseline Model
 
