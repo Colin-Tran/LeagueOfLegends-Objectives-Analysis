@@ -321,7 +321,7 @@ P Value = 0.0000999
   frameborder="0">
 </iframe>
 
-Based on the test we just performed, we reject the null hypothesis at a significance level of 5%. This indicates that the observed difference in win percentages between higher-dragon-securing teams and lower-dragon-securing teams is unlikely to be due to random chance alone. This suggest strongly that their is an assoication between securing more dragons and having a higher win rate.
+Based on the test we just performed, we reject the null hypothesis at a significance level of 5%. This indicates that the observed difference in win percentages between higher-dragon-securing teams and lower-dragon-securing teams is unlikely to be due to random chance alone. This suggest strongly that their is an association between securing more dragons and having a higher win rate.
 
 
 ## Framing a Prediction Problem
