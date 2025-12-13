@@ -382,3 +382,22 @@ The best-performing setting was C = {'log_reg__C': 10, 'log_reg__penalty': 'l2'}
 
 
 ## Fairness Analysis
+
+In this section, we are going to assess if our model is fair among different groups (X and Y). We will analyze:
+
+- Does our model performs worse for games that are shorter than the median game length compared to games that are longer than the median game length?
+
+To answer this question, we performed a permutation test and anaylzed the results of the differences in accuracy between the two groups. Group X is a group consisting of matches that ended before the median gamelength and Group Y is a group consisting of matches that ended after the median game length.
+
+For evaluating this we will use accuracy, the proportion of correctly predicted match outcomes.
+
+- Null hypothesis: Our model is fair, and its accuracy for predicting match outcomes in games shorter than the median game length is the same as its accuracy for predicting match outcomes in games longer than the median game length.
+
+- Alternative hypothesis: Our model is unfair, and its accuracy for predicting match outcomes in games longer than the median game length is **NOT** the same as its accuracy for predicting match outcomes in games shorter than the median game length.
+
+Our test statistic will be the We use the difference in accuracies:
+- Accuracy of Short Gamelegths - Accuracy of Long Game Lengths
+
+Significance Level = will use α = 0.05 / 5%
+
+The resulting p-value of 0.00009999 means that we reject the null hypothesis. This means that the model's accuracy does depend on the game length and that it performs differently depending on the finish time of a game. In other words, the model does not perform equally well across game lengths.
